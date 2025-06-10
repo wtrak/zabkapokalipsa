@@ -1,29 +1,173 @@
-const labels = {
-  pl: {
-    hotdog: "Mistrz Hot Doga",
-    kabanosy: "Kabanosowy Król",
-    pierogi: "Pierogowy Przetrwalec",
-    vodka: "Wódczany Wizjoner",
-    water: "Hydro Bohater",
-    tech: "Techno Żyjący",
-    hygiene: "Apokaliptyczny Sanitarnik",
-    sweets: "Cukrowy Strateg",
-    sauce: "Czosnkowy Czarodziej",
-    sandwich: "Kanapkowy Kurier"
-  },
-  en: {
-    hotdog: "Hot Dog Master",
-    kabanosy: "Kabanos King",
-    pierogi: "Pierogi Prepper",
-    vodka: "Vodka Visionary",
-    water: "Hydration Hero",
-    tech: "Tech Survivor",
-    hygiene: "Apocalypse Sanitizer",
-    sweets: "Candy Strategist",
-    sauce: "Garlic Wizard",
-    sandwich: "Sandwich Operator"
-  }
-};
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Żappkapokalipsa</title>
+  <style>
+    body {
+      font-family: 'Courier New', monospace;
+      background-color: #ffffff;
+      color: #004d00;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 4px solid #009933;
+      border-radius: 10px;
+    }
+    h1 {
+      text-align: center;
+      color: #009933;
+    }
+    .language-toggle {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .item-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .item-grid label {
+      flex: 1 1 30%;
+      cursor: pointer;
+      background: #e6ffe6;
+      border: 2px solid #009933;
+      padding: 8px;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      width: 100%;
+      background-color: #009933;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    #result {
+      margin-top: 30px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .ad-space {
+      margin: 20px 0;
+      background: #d9ffd9;
+      text-align: center;
+      padding: 10px;
+      border: 2px dashed #009933;
+    }
+  </style>
+</head>
+<body>
+  <h1>Żappkapokalipsa</h1>
+
+  <div class="language-toggle">
+    <button onclick="switchLang('pl')">PL</button>
+    <button onclick="switchLang('en')">EN</button>
+  </div>
+
+  <form id="gameForm">
+    <label id="selectPrompt">Wybierz 10 produktów z Żabki na przetrwanie:</label>
+    <div class="item-grid" id="items"></div>
+    <div class="ad-space">[Reklama Google AdSense tutaj]</div>
+    <button type="submit">Sprawdź ile przeżyjesz</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    const labels = {
+      pl: {
+        hotdog: "Mistrz Hot Doga",
+        kabanosy: "Kabanosowy Król",
+        pierogi: "Pierogowy Przetrwalec",
+        vodka: "Wódczany Wizjoner",
+        water: "Hydro Bohater",
+        tech: "Techno Żyjący",
+        hygiene: "Apokaliptyczny Sanitarnik",
+        sweets: "Cukrowy Strateg",
+        sauce: "Czosnkowy Czarodziej",
+        sandwich: "Kanapkowy Kurier"
+      },
+      en: {
+        hotdog: "Hot Dog Master",
+        kabanosy: "Kabanos King",
+        pierogi: "Pierogi Prepper",
+        vodka: "Vodka Visionary",
+        water: "Hydration Hero",
+        tech: "Tech Survivor",
+        hygiene: "Apocalypse Sanitizer",
+        sweets: "Candy Strategist",
+        sauce: "Garlic Wizard",
+        sandwich: "Sandwich Operator"
+      }
+    };
+
+    const lang = {
+      pl: {
+        prompt: "Wybierz 10 produktów z Żabki na przetrwanie:",
+        button: "Sprawdź ile przeżyjesz",
+        survived: d => `Przeżyłeś ${d} dni w Żappkapokalipsie!`,
+        share: d => `Przeżyłem ${d} dni w Żappkapokalipsie! Sprawdź ile Ty dasz radę!`
+      },
+      en: {
+        prompt: "Pick 10 items from Żabka to survive:",
+        button: "Check how long you'd survive",
+        survived: d => `You survived ${d} days in the Żappkapocalypse!`,
+        share: d => `I survived ${d} days in the Żappkapocalypse! See if you can beat me!`
+      }
+    };
+
+    let currentLang = 'pl';
+
+    function switchLang(l) {
+      currentLang = l;
+      document.getElementById("selectPrompt").textContent = lang[l].prompt;
+      document.querySelector("button[type=submit]").textContent = lang[l].button;
+    }
+
+    const items = [
+      { name: 'Hot dog', points: 2, tag: 'hotdog' },
+      { name: 'Kabanosy', points: 3, tag: 'kabanosy' },
+      { name: 'Tiger Energy Drink', points: 1, tag: 'energy' },
+      { name: 'Woda Żywiec Zdrój', points: 3, tag: 'water' },
+      { name: 'Redbull', points: 2, tag: 'energy' },
+      { name: 'Zupa instant', points: 2, tag: 'soup' },
+      { name: 'Kanapka Żabka', points: 2, tag: 'sandwich' },
+      { name: 'Małpka wódki', points: 1, tag: 'vodka' },
+      { name: 'Batony Kinder/Grześki', points: 1, tag: 'sweets' },
+      { name: 'Szczoteczka i pasta', points: 2, tag: 'hygiene' },
+      { name: 'Lighter', points: 2, tag: 'tool' },
+      { name: 'Pierogi mrożone', points: 2, tag: 'pierogi' },
+      { name: 'Jogurt Fantasia', points: 1, tag: 'dairy' },
+      { name: 'Lody Ekipy', points: 0, tag: 'icecream' },
+      { name: 'Paluszki', points: 1, tag: 'snacks' },
+      { name: 'Wafle ryżowe', points: 1, tag: 'snacks' },
+      { name: 'Piwo Harnas', points: 1, tag: 'beer' },
+      { name: 'Żel antybakteryjny', points: 2, tag: 'hygiene' },
+      { name: 'Bag of ice', points: 0, tag: 'ice' },
+      { name: 'Powerbank', points: 3, tag: 'tech' },
+      { name: 'Chrupki cebulowe', points: 1, tag: 'snacks' },
+      { name: 'Sos czosnkowy', points: 0, tag: 'sauce' },
+      { name: 'Ketchup Pikantny', points: 0, tag: 'sauce' },
+      { name: 'Kropla Beskidu', points: 3, tag: 'water' },
+      { name: 'Mleko 2%', points: 1, tag: 'dairy' }
+    ];
+
+    const container = document.getElementById('items');
+    items.forEach((item, i) => {
+      const id = `item-${i}`;
+      container.innerHTML += `<label><input type='checkbox' name='item' value='${item.points}' data-tag='${item.tag}' id='${id}'> ${item.name}</label>`;
+    });
 
     document.getElementById('gameForm').addEventListener('submit', function (e) {
       e.preventDefault();
@@ -79,23 +223,23 @@ const labels = {
         }
       }
       if (!funnyEnding) {
-  const fallbackOutcomes = {
-    pl: [
-      'Zjadłeś wszystkie kabanosy i zapomniałeś o wodzie. Nie przetrwałeś.',
-      'Twoje zakupy były smaczne, ale bezużyteczne. Umarłeś syty.',
-      'Zrobiłeś z żelu antybakteryjnego sos. Żałujesz.',
-      'Wszystko poszło dobrze... dopóki nie rozładował się powerbank.'
-    ],
-    en: [
-      'You ate all the kabanosy and forgot water. You didn’t make it.',
-      'Your groceries were tasty but useless. You died full and happy.',
-      'You turned hand sanitizer into sauce. Regret was instant.',
-      'Everything went fine… until the powerbank died.'
-    ]
-  };
-  const options = fallbackOutcomes[currentLang];
-  funnyEnding = options[Math.floor(Math.random() * options.length)];
-}
+        const fallbackOutcomes = {
+          pl: [
+            'Zjadłeś wszystkie kabanosy i zapomniałeś o wodzie. Nie przetrwałeś.',
+            'Twoje zakupy były smaczne, ale bezużyteczne. Umarłeś syty.',
+            'Zrobiłeś z żelu antybakteryjnego sos. Żałujesz.',
+            'Wszystko poszło dobrze... dopóki nie rozładował się powerbank.'
+          ],
+          en: [
+            'You ate all the kabanosy and forgot water. You didn’t make it.',
+            'Your groceries were tasty but useless. You died full and happy.',
+            'You turned hand sanitizer into sauce. Regret was instant.',
+            'Everything went fine… until the powerbank died.'
+          ]
+        };
+        const options = fallbackOutcomes[currentLang];
+        funnyEnding = options[Math.floor(Math.random() * options.length)];
+      }
 
       const message = lang[currentLang].survived(days);
       const shareText = lang[currentLang].share(days);
@@ -114,3 +258,6 @@ const labels = {
         <div class="ad-space">[Reklama Google AdSense tutaj]</div>
       `;
     });
+  </script>
+</body>
+</html>

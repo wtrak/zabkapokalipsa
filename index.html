@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Żappkapokalipsa</title>
+  <style>
+    body {
+      font-family: 'Courier New', monospace;
+      background-color: #ffffff;
+      color: #004d00;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 4px solid #009933;
+      border-radius: 10px;
+    }
+    h1 {
+      text-align: center;
+      color: #009933;
+    }
+    .language-toggle {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .item-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .item-grid label {
+      flex: 1 1 30%;
+      cursor: pointer;
+      background: #e6ffe6;
+      border: 2px solid #009933;
+      padding: 8px;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      width: 100%;
+      background-color: #009933;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    #result {
+      margin-top: 30px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .ad-space {
+      margin: 20px 0;
+      background: #d9ffd9;
+      text-align: center;
+      padding: 10px;
+      border: 2px dashed #009933;
+    }
+  </style>
+</head>
+<body>
+  <h1>Żappkapokalipsa</h1>
+
+  <div class="language-toggle">
+    <button onclick="switchLang('pl')">PL</button>
+    <button onclick="switchLang('en')">EN</button>
+  </div>
+
+  <form id="gameForm">
+    <label id="selectPrompt">Wybierz 10 produktów z Żabki na przetrwanie:</label>
+    <div class="item-grid" id="items">
+      <!-- Items will be injected here -->
+    </div>
+
+    <div class="ad-space">[Reklama Google AdSense tutaj]</div>
+
+    <button type="submit">Sprawdź ile przeżyjesz</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    const items = [
+      { name: 'Hot dog', points: 2 },
+      { name: 'Kabanosy', points: 3 },
+      { name: 'Tiger Energy Drink', points: 1 },
+      { name: 'Woda Żywiec Zdrój', points: 3 },
+      { name: 'Redbull', points: 2 },
+      { name: 'Zupa instant', points: 2 },
+      { name: 'Kanapka Żabka', points: 2 },
+      { name: 'Małpka wódki', points: 1 },
+      { name: 'Batony Kinder/Grześki', points: 1 },
+      { name: 'Szczoteczka i pasta', points: 2 },
+      { name: 'Lighter', points: 2 },
+      { name: 'Pierogi mrożone', points: 2 },
+      { name: 'Jogurt Fantasia', points: 1 },
+      { name: 'Lody Ekipy', points: 0 },
+      { name: 'Paluszki', points: 1 },
+      { name: 'Wafle ryżowe', points: 1 },
+      { name: 'Piwo Harnas', points: 1 },
+      { name: 'Żel antybakteryjny', points: 2 },
+      { name: 'Bag of ice', points: 0 },
+      { name: 'Powerbank', points: 3 }
+    ];
+
+    const lang = {
+      pl: {
+        prompt: "Wybierz 10 produktów z Żabki na przetrwanie:",
+        button: "Sprawdź ile przeżyjesz",
+        survived: d => `Przeżyłeś ${d} dni w Żappkapokalipsie!`,
+        share: d => `Przeżyłem ${d} dni w Żappkapokalipsie! Sprawdź ile Ty dasz radę!`
+      },
+      en: {
+        prompt: "Pick 10 items from Żabka to survive:",
+        button: "Check how long you'd survive",
+        survived: d => `You survived ${d} days in the Żappkapocalypse!`,
+        share: d => `I survived ${d} days in the Żappkapocalypse! See if you can beat me!`
+      }
+    };
+
+    let currentLang = 'pl';
+
+    function switchLang(l) {
+      currentLang = l;
+      document.getElementById("selectPrompt").textContent = lang[l].prompt;
+      document.querySelector("button[type=submit]").textContent = lang[l].button;
+    }
+
+    const container = document.getElementById('items');
+    items.forEach((item, i) => {
+      const id = `item-${i}`;
+      container.innerHTML += `<label><input type='checkbox' name='item' value='${item.points}' data-name='${item.name}' id='${id}'> ${item.name}</label>`;
+    });
+
+    document.getElementById('gameForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const selected = Array.from(document.querySelectorAll("input[name='item']:checked"));
+      if (selected.length !== 10) {
+        alert(currentLang === 'pl' ? 'Musisz wybrać dokładnie 10 przedmiotów!' : 'You must choose exactly 10 items!');
+        return;
+      }
+      const total = selected.reduce((sum, el) => sum + parseInt(el.value), 0);
+      const days = total * 3 + Math.floor(Math.random() * 5);
+      const message = lang[currentLang].survived(days);
+
+      const shareText = lang[currentLang].share(days);
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent(shareText);
+
+      document.getElementById('result').innerHTML = `
+        <p>${message}</p>
+        <div style="margin-top:10px">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}" target="_blank">Facebook</a> |
+          <a href="https://twitter.com/intent/tweet?text=${text}&url=${url}" target="_blank">Twitter</a> |
+          <a href="https://wa.me/?text=${text}%20${url}" target="_blank">WhatsApp</a>
+        </div>
+        <div class="ad-space">[Reklama Google AdSense tutaj]</div>
+      `;
+    });
+  </script>
+</body>
+</html>

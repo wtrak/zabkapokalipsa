@@ -172,6 +172,28 @@
         ]
       }
     };
+    
+    const replayHints = {
+  pl: [
+    "Co się stanie, jeśli weźmiesz tylko słodycze i dezodorant?",
+    "Jest zakończenie z mapą Mazur. Serio.",
+    "Spróbuj innej kombinacji — chaos czeka.",
+    "Niektórzy mówią, że Brutal bez wody to klucz.",
+    "Czy istnieje buraczana apokalipsa? Może.",
+    "Zagraj jeszcze raz z mniej praktycznymi rzeczami.",
+    "Jest zakończenie w zamrażarce Żabki. Znajdź je."
+  ],
+  en: [
+    "Ever wonder what happens if you pack only sweets and deodorant?",
+    "There’s an ending with a map of Mazury. Yes, really.",
+    "Try again with a different combo — chaos awaits.",
+    "Some endings only happen if you bring Brutal deodorant and no water.",
+    "We’re not saying there’s a beet-based zombie plague… but maybe.",
+    "Replay with fewer practical items. Trust us.",
+    "One ending involves a frozen Żabka freezer. Try to find it."
+  ]
+};
+
 
     let currentLang = 'pl';
 
@@ -204,21 +226,29 @@
       const text = encodeURIComponent(shareText);
 
       document.getElementById('gameForm').style.display = 'none';
-      document.getElementById('result').innerHTML = `
-        <p>${message}</p>
-        <p><em>${outcome}</em></p>
-        <div style="margin-top:10px">
-          <p>${currentLang === 'pl' ? 'Udostępnij wynik:' : 'Share your result:'}</p>
-          <a href="mailto:?subject=Żabkapokalipsa&body=${text}%20${url}" target="_blank">Email</a> |
-          <a href="https://wa.me/?text=${text}%20${url}" target="_blank">WhatsApp</a> |
-          <a href="https://t.me/share/url?url=${url}&text=${text}" target="_blank">Telegram</a> |
-          <a href="#" onclick="navigator.share({ title: 'Żabkapokalipsa', text: '${shareText}', url: '${window.location.href}' }).catch(console.error); return false;">
-            ${currentLang === 'pl' ? 'Udostępnij...' : 'Share...'}
-          </a>
-        </div>
-        <div class="ad-space">[Reklama Google AdSense tutaj]</div>
-        <button onclick="location.reload()">${currentLang === 'pl' ? 'Zagraj ponownie' : 'Play Again'}</button>
-      `;
+      const hint = replayHints[currentLang][Math.floor(Math.random() * replayHints[currentLang].length)];
+const replayLine = currentLang === 'pl'
+  ? 'Zagraj ponownie, aby odkryć więcej absurdalnych zakończeń Żabkapokalipsy.'
+  : 'Replay to discover more absurd Żabkapokalipsa endings.';
+
+document.getElementById('result').innerHTML = `
+  <p>${message}</p>
+  <p><em>${outcome}</em></p>
+  <p style="margin-top:10px; font-style: italic; font-size: 0.7em;">${replayLine}</p>
+  <p style="font-size: 0.7em; color: #555;">${hint}</p>
+  <div style="margin-top:10px">
+    <p>${currentLang === 'pl' ? 'Udostępnij wynik:' : 'Share your result:'}</p>
+    <a href="mailto:?subject=Żabkapokalipsa&body=${text}%20${url}" target="_blank">Email</a> |
+    <a href="https://wa.me/?text=${text}%20${url}" target="_blank">WhatsApp</a> |
+    <a href="https://t.me/share/url?url=${url}&text=${text}" target="_blank">Telegram</a> |
+    <a href="#" onclick="shareGeneric('${shareText}', '${window.location.href}'); return false;">
+      ${currentLang === 'pl' ? 'Udostępnij...' : 'Share...'}
+    </a>
+  </div>
+  <div class="ad-space">[Reklama Google AdSense tutaj]</div>
+  <button onclick="location.reload()">🔁 ${currentLang === 'pl' ? 'Zagraj ponownie' : 'Play again'}</button>
+`;
+
     });
   </script>
 </body>

@@ -117,12 +117,28 @@
         prompt: "Wybierz 10 produktów z Żabki na przetrwanie:",
         button: "Sprawdź ile przeżyjesz",
         survived: d => `Przeżyłeś ${d} dni w Żappkapokalipsie!`,
+        outcome: [
+          "Zjadłeś wszystkie kabanosy w pierwszym dniu. Gratulacje...", 
+          "Zginąłeś próbując otworzyć puszkę pierogów kluczem od roweru.",
+          "Twoja ostatnia chwila? Próbowałeś zagotować wodę w butelce Redbulla.",
+          "Zostałeś władcą pustkowia z hot dogiem jako berłem.",
+          "Zostałeś przejęty przez dziką bandę uzbrojoną w szczoteczki do zębów.",
+          "Umarłeś z odwodnienia – zebrałeś wszystko oprócz wody."
+        ],
         share: d => `Przeżyłem ${d} dni w Żappkapokalipsie! Sprawdź ile Ty dasz radę!`
       },
       en: {
         prompt: "Pick 10 items from Żabka to survive:",
         button: "Check how long you'd survive",
         survived: d => `You survived ${d} days in the Żappkapocalypse!`,
+        outcome: [
+          "You ate all your kabanosy on day one. Impressive and deadly.",
+          "You died trying to open a can of pierogi with a bike key.",
+          "Your final moment: boiling water in a Redbull can.",
+          "You ruled the wasteland with a hot dog as your scepter.",
+          "You were overtaken by a toothbrush gang in aisle 3.",
+          "You died of dehydration after skipping water for 3 flavors of vodka."
+        ],
         share: d => `I survived ${d} days in the Żappkapocalypse! See if you can beat me!`
       }
     };
@@ -151,6 +167,7 @@
       const total = selected.reduce((sum, el) => sum + parseInt(el.value), 0);
       const days = total * 3 + Math.floor(Math.random() * 5);
       const message = lang[currentLang].survived(days);
+      const outcome = lang[currentLang].outcome[Math.floor(Math.random() * lang[currentLang].outcome.length)];
 
       const shareText = lang[currentLang].share(days);
       const url = encodeURIComponent(window.location.href);
@@ -158,6 +175,7 @@
 
       document.getElementById('result').innerHTML = `
         <p>${message}</p>
+        <p><em>${outcome}</em></p>
         <div style="margin-top:10px">
           <a href="https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}" target="_blank">Facebook</a> |
           <a href="https://twitter.com/intent/tweet?text=${text}&url=${url}" target="_blank">Twitter</a> |

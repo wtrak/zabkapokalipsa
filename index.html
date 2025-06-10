@@ -74,6 +74,13 @@
     <button onclick="switchLang('pl')">PL</button>
     <button onclick="switchLang('en')">EN</button>
   </div>
+  <div id="scrollHint" style="text-align:center; margin-top: 10px;">
+  <div style="font-size: 24px;">⬇️</div>
+  <div style="font-size: 14px; color: #333;">
+    <span id="scrollHintText">Po dokonaniu wyboru, przewiń w dół i kliknij przycisk, aby zobaczyć wynik</span>
+  </div>
+</div>
+
 
   <form id="gameForm">
     <label id="selectPrompt">Wybierz 10 produktów z Żabki na przetrwanie:</label>
@@ -201,6 +208,10 @@
       currentLang = l;
       document.getElementById("selectPrompt").textContent = lang[l].prompt;
       document.getElementById("submitBtn").textContent = lang[l].button;
+      document.getElementById("scrollHintText").textContent = l === 'pl'
+  ? "Po dokonaniu wyboru, przewiń w dół i kliknij przycisk, aby zobaczyć wynik"
+  : "After choosing your items, scroll down and click the button to see your result";
+
     }
 
     const container = document.getElementById('items');

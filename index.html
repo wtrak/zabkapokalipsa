@@ -89,28 +89,53 @@
   <div id="result"></div>
 
   <script>
-    const items = [
-      { name: 'Hot dog', points: 2 },
-      { name: 'Kabanosy', points: 3 },
-      { name: 'Tiger Energy Drink', points: 1 },
-      { name: 'Woda Żywiec Zdrój', points: 3 },
-      { name: 'Redbull', points: 2 },
-      { name: 'Zupa instant', points: 2 },
-      { name: 'Kanapka Żabka', points: 2 },
-      { name: 'Małpka wódki', points: 1 },
-      { name: 'Batony Kinder/Grześki', points: 1 },
-      { name: 'Szczoteczka i pasta', points: 2 },
-      { name: 'Lighter', points: 2 },
-      { name: 'Pierogi mrożone', points: 2 },
-      { name: 'Jogurt Fantasia', points: 1 },
-      { name: 'Lody Ekipy', points: 0 },
-      { name: 'Paluszki', points: 1 },
-      { name: 'Wafle ryżowe', points: 1 },
-      { name: 'Piwo Harnas', points: 1 },
-      { name: 'Żel antybakteryjny', points: 2 },
-      { name: 'Bag of ice', points: 0 },
-      { name: 'Powerbank', points: 3 }
-    ];
+  const items = [
+    { name: 'Hot dog', points: 2 },
+    { name: 'Kabanosy', points: 3 },
+    { name: 'Tiger Energy Drink', points: 1 },
+    { name: 'Woda Żywiec Zdrój', points: 3 },
+    { name: 'Redbull', points: 2 },
+    { name: 'Zupa instant', points: 2 },
+    { name: 'Kanapka Żabka', points: 2 },
+    { name: 'Małpka wódki', points: 1 },
+    { name: 'Batony Kinder/Grześki', points: 1 },
+    { name: 'Szczoteczka i pasta', points: 2 },
+    { name: 'Lighter', points: 2 },
+    { name: 'Pierogi mrożone', points: 2 },
+    { name: 'Jogurt Fantasia', points: 1 },
+    { name: 'Lody Ekipy', points: 0 },
+    { name: 'Paluszki', points: 1 },
+    { name: 'Wafle ryżowe', points: 1 },
+    { name: 'Piwo Harnas', points: 1 },
+    { name: 'Żel antybakteryjny', points: 2 },
+    { name: 'Bag of ice', points: 0 },
+    { name: 'Powerbank', points: 3 },
+
+    // New Additions
+    { name: 'Oranżada Hellena', points: 1 },
+    { name: 'Kropla Beskidu', points: 3 },
+    { name: 'Czekolada Wedel', points: 2 },
+    { name: 'Krakersy Lajkonik', points: 1 },
+    { name: 'Serek Wiejski', points: 1 },
+    { name: 'Baton Prince Polo', points: 1 },
+    { name: 'Papier toaletowy luzem', points: 0 },
+    { name: 'Mydło w kostce', points: 1 },
+    { name: 'Dezodorant Brutal', points: 2 },
+    { name: 'Plastry opatrunkowe', points: 2 },
+    { name: 'Świeczka zapachowa', points: 1 },
+    { name: 'Baterie AA', points: 2 },
+    { name: 'Folia aluminiowa', points: 1 },
+    { name: 'Ręcznik papierowy', points: 1 },
+    { name: 'Zapalniczka z orłem', points: 2 },
+    { name: 'Mapka turystyczna Mazur', points: 0 },
+    { name: 'Pasztet Profi', points: 2 },
+    { name: 'Kasza gryczana instant', points: 2 },
+    { name: 'Ogórki konserwowe', points: 1 },
+    { name: 'Chleb krojony', points: 2 },
+    { name: 'Ser żółty w plastrach', points: 2 }
+  ];
+</script>
+
 
     const lang = {
       pl: {

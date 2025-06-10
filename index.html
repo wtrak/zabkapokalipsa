@@ -77,72 +77,44 @@
 
   <form id="gameForm">
     <label id="selectPrompt">Wybierz 10 produktów z Żabki na przetrwanie:</label>
-    <div class="item-grid" id="items">
-      <!-- Items will be injected here -->
-    </div>
-
- 
-
+    <div class="item-grid" id="items"></div>
     <button type="submit">Sprawdź ile przeżyjesz</button>
   </form>
 
   <div id="result"></div>
 
   <script>
-  const items = [
-    { name: 'Hot dog', points: 2 },
-    { name: 'Kabanosy', points: 3 },
-    { name: 'Tiger Energy Drink', points: 1 },
-    { name: 'Woda Żywiec Zdrój', points: 3 },
-    { name: 'Redbull', points: 2 },
-    { name: 'Zupa instant', points: 2 },
-    { name: 'Kanapka Żabka', points: 2 },
-    { name: 'Małpka wódki', points: 1 },
-    { name: 'Batony Kinder/Grześki', points: 1 },
-    { name: 'Szczoteczka i pasta', points: 2 },
-    { name: 'Lighter', points: 2 },
-    { name: 'Pierogi mrożone', points: 2 },
-    { name: 'Jogurt Fantasia', points: 1 },
-    { name: 'Lody Ekipy', points: 0 },
-    { name: 'Paluszki', points: 1 },
-    { name: 'Wafle ryżowe', points: 1 },
-    { name: 'Piwo Harnas', points: 1 },
-    { name: 'Żel antybakteryjny', points: 2 },
-    { name: 'Bag of ice', points: 0 },
-    { name: 'Powerbank', points: 3 },
-
-    // New Additions
-    { name: 'Oranżada Hellena', points: 1 },
-    { name: 'Kropla Beskidu', points: 3 },
-    { name: 'Czekolada Wedel', points: 2 },
-    { name: 'Krakersy Lajkonik', points: 1 },
-    { name: 'Serek Wiejski', points: 1 },
-    { name: 'Baton Prince Polo', points: 1 },
-    { name: 'Papier toaletowy luzem', points: 0 },
-    { name: 'Mydło w kostce', points: 1 },
-    { name: 'Dezodorant Brutal', points: 2 },
-    { name: 'Plastry opatrunkowe', points: 2 },
-    { name: 'Świeczka zapachowa', points: 1 },
-    { name: 'Baterie AA', points: 2 },
-    { name: 'Folia aluminiowa', points: 1 },
-    { name: 'Ręcznik papierowy', points: 1 },
-    { name: 'Zapalniczka z orłem', points: 2 },
-    { name: 'Mapka turystyczna Mazur', points: 0 },
-    { name: 'Pasztet Profi', points: 2 },
-    { name: 'Kasza gryczana instant', points: 2 },
-    { name: 'Ogórki konserwowe', points: 1 },
-    { name: 'Chleb krojony', points: 2 },
-    { name: 'Ser żółty w plastrach', points: 2 }
-  ];
-
+    const items = [
+      { name: 'Hot dog', points: 2 }, { name: 'Kabanosy', points: 3 },
+      { name: 'Tiger Energy Drink', points: 1 }, { name: 'Woda Żywiec Zdrój', points: 3 },
+      { name: 'Redbull', points: 2 }, { name: 'Zupa instant', points: 2 },
+      { name: 'Kanapka Żabka', points: 2 }, { name: 'Małpka wódki', points: 1 },
+      { name: 'Batony Kinder/Grześki', points: 1 }, { name: 'Szczoteczka i pasta', points: 2 },
+      { name: 'Lighter', points: 2 }, { name: 'Pierogi mrożone', points: 2 },
+      { name: 'Jogurt Fantasia', points: 1 }, { name: 'Lody Ekipy', points: 0 },
+      { name: 'Paluszki', points: 1 }, { name: 'Wafle ryżowe', points: 1 },
+      { name: 'Piwo Harnas', points: 1 }, { name: 'Żel antybakteryjny', points: 2 },
+      { name: 'Bag of ice', points: 0 }, { name: 'Powerbank', points: 3 },
+      { name: 'Oranżada Hellena', points: 1 }, { name: 'Kropla Beskidu', points: 3 },
+      { name: 'Czekolada Wedel', points: 2 }, { name: 'Krakersy Lajkonik', points: 1 },
+      { name: 'Serek Wiejski', points: 1 }, { name: 'Baton Prince Polo', points: 1 },
+      { name: 'Papier toaletowy luzem', points: 0 }, { name: 'Mydło w kostce', points: 1 },
+      { name: 'Dezodorant Brutal', points: 2 }, { name: 'Plastry opatrunkowe', points: 2 },
+      { name: 'Świeczka zapachowa', points: 1 }, { name: 'Baterie AA', points: 2 },
+      { name: 'Folia aluminiowa', points: 1 }, { name: 'Ręcznik papierowy', points: 1 },
+      { name: 'Zapalniczka z orłem', points: 2 }, { name: 'Mapka turystyczna Mazur', points: 0 },
+      { name: 'Pasztet Profi', points: 2 }, { name: 'Kasza gryczana instant', points: 2 },
+      { name: 'Ogórki konserwowe', points: 1 }, { name: 'Chleb krojony', points: 2 },
+      { name: 'Ser żółty w plastrach', points: 2 }
+    ];
 
     const lang = {
       pl: {
         prompt: "Wybierz 10 produktów z Żabki na przetrwanie:",
         button: "Sprawdź ile przeżyjesz",
-        survived: d => `Przeżyłeś ${d} dni w Żappkapokalipsie!`,
+        survived: d => `Przeżyłeś ${d} dni w Żabkapokalipsie!`,
         outcome: [
-          "Zjadłeś wszystkie kabanosy w pierwszym dniu. Gratulacje...", 
+          "Zjadłeś wszystkie kabanosy w pierwszym dniu. Gratulacje...",
           "Zginąłeś próbując otworzyć puszkę pierogów kluczem od roweru.",
           "Twoja ostatnia chwila? Próbowałeś zagotować wodę w butelce Redbulla.",
           "Zostałeś władcą pustkowia z hot dogiem jako berłem.",
@@ -151,7 +123,20 @@
           "Twoją kryjówkę zdradził dźwięk otwieranej Małpki.",
           "Zamieszkałeś w zamrażarce Żabki. Zamarzłeś z godnością.",
           "Zostałeś stratowany przez babcie walczące o promocję na ogórki.",
-          "Umarłeś z odwodnienia – zebrałeś wszystko oprócz wody."
+          "Umarłeś z odwodnienia - zebrałeś wszystko oprócz wody.",
+          "Zaatakowały cię dziki, bo trzymałeś kiszone ogórki w kieszeni.",
+          "Babcia ostrzegła cię przed Praga. Nie posłuchałeś.",
+          "Zamieniłeś cały zapas jedzenia na jedną butelkę Żubrówki. Warto było?",
+          "Twoje zapasy buraków zaczęły fermentować i stworzyły nową formę życia.",
+          "Wlałeś wódkę do baku skutera. Skuter wybuchł, a kula ognia była widoczna z Gdańska.",
+          "Twoja babcia zjawiła się znikąd, dała ci rosół i zniknęła w mgłach apokalipsy.",
+          "Znalazłeś schronienie w opuszczonym bloku na Pradze. Przeżyłeś, bo nikt się nie odważył wejść.",
+          "Dzięki kiszonym burakom wyhodowałeś własny antybiotyk. Polskie geny to moc.",
+          "Przeżyłeś w piwnicy dzięki starym zapasom bigosu i Radiu Maryja w tle.",
+          "Schowałeś się w piwnicy, ale zapomniałeś otwieracza do konserw. Zginąłeś przy próbie użycia klapka Kubota.",
+          "Miałeś plan, sprzęt, prowiant… ale poszedłeś po kebaba i już nie wróciłeś.",
+          "Uciekałeś przed dzikami na hulajnodze. Były szybsze. I bardziej zorganizowane.",
+          "Stworzyłeś nową religię opartą na Ptasim Mleczku. Zyskałeś wielu wyznawców. I cukrzycę."
         ],
         share: d => `Przeżyłem ${d} dni w Żappkapokalipsie! Sprawdź ile Ty dasz radę!`
       },
@@ -169,9 +154,22 @@
           "Your hiding spot was revealed by the sound of opening a tiny vodka bottle.",
           "You moved into the Żabka freezer. Froze to death with dignity.",
           "You were trampled by grandmas fighting over pickles on sale.",
-          "You died of dehydration after skipping water for 3 flavors of vodka."
+          "You died of dehydration after skipping water for 3 flavors of vodka.",
+          "You were attacked by wild boars because you kept pickles in your pocket.",
+          "Grandma warned you about Praga. You didn’t listen. Now you’re part of the graffiti.",
+          "You traded all your food for one bottle of Żubrówka. Worth it?",
+          "Your stash of beets fermented and created a new form of life.",
+          "You poured vodka into your scooter’s tank. It exploded, and the fireball was visible from Gdańsk.",
+          "Your grandmother appeared out of nowhere, gave you chicken soup, and vanished into the apocalypse mist.",
+          "You found shelter in an abandoned Praga apartment block. You survived because no one dared enter.",
+          "Thanks to pickled beets, you cultured your own antibiotic. Polish genes are pure power.",
+          "You survived in a basement thanks to old jars of bigos and Radio Maryja playing in the background.",
+          "You hid in a basement but forgot a can opener. Died trying to use a Kubota sandal instead.",
+          "You had a plan, supplies, equipment… but you went out for kebab and never came back.",
+          "You tried to escape wild boars on a scooter. They were faster. And better organized.",
+          "You founded a new religion based on Ptasie Mleczko. You gained many followers. And diabetes."
         ],
-        share: d => `I survived ${d} days in the Żappkapocalypse! See if you can beat me!`
+        share: d => `I survived ${d} days in the Żabkapocalypse! See if you can beat me!`
       }
     };
 
@@ -196,20 +194,27 @@
         alert(currentLang === 'pl' ? 'Musisz wybrać dokładnie 10 przedmiotów!' : 'You must choose exactly 10 items!');
         return;
       }
+
       const total = selected.reduce((sum, el) => sum + parseInt(el.value), 0);
       const days = total * 3 + Math.floor(Math.random() * 5);
       const message = lang[currentLang].survived(days);
       const outcome = lang[currentLang].outcome[Math.floor(Math.random() * lang[currentLang].outcome.length)];
-
       const shareText = lang[currentLang].share(days);
       const url = encodeURIComponent(window.location.href);
       const text = encodeURIComponent(shareText);
 
+      let shareLinks = `
+        <div style="margin-top:15px">
+          <a href="mailto:?subject=Żabkapokalipsa&body=${text}%0A${url}" target="_blank">📧 Email</a> |
+          <a href="https://wa.me/?text=${text}%20${url}" target="_blank">💬 WhatsApp</a> |
+          <a href="https://t.me/share/url?url=${url}&text=${text}" target="_blank">📢 Telegram</a> |
+          <a href="#" onclick="if(navigator.share){navigator.share({title:'Żabkapokalipsa', text:'${shareText}', url:window.location.href});}return false;">🔗 Share</a>
+        </div>`;
+
       document.getElementById('result').innerHTML = `
         <p>${message}</p>
         <p><em>${outcome}</em></p>
-        <div style="margin-top:10px">
-       
+        ${shareLinks}
         <div class="ad-space">[Reklama Google AdSense tutaj]</div>
       `;
     });

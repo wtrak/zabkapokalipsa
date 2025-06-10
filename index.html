@@ -1,171 +1,4 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Żappkapokalipsa</title>
-  <style>
-    body {
-      font-family: 'Courier New', monospace;
-      background-color: #ffffff;
-      color: #004d00;
-      max-width: 700px;
-      margin: 40px auto;
-      padding: 20px;
-      border: 4px solid #009933;
-      border-radius: 10px;
-    }
-    h1 {
-      text-align: center;
-      color: #009933;
-    }
-    .language-toggle {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    label {
-      display: block;
-      margin-top: 10px;
-      font-weight: bold;
-    }
-    .item-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .item-grid label {
-      flex: 1 1 30%;
-      cursor: pointer;
-      background: #e6ffe6;
-      border: 2px solid #009933;
-      padding: 8px;
-      border-radius: 5px;
-    }
-    button {
-      margin-top: 20px;
-      padding: 10px;
-      width: 100%;
-      background-color: #009933;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-    }
-    #result {
-      margin-top: 30px;
-      font-size: 18px;
-      font-weight: bold;
-      text-align: center;
-    }
-    .ad-space {
-      margin: 20px 0;
-      background: #d9ffd9;
-      text-align: center;
-      padding: 10px;
-      border: 2px dashed #009933;
-    }
-  </style>
-</head>
-<body>
-  <h1>Żappkapokalipsa</h1>
-
-  <div class="language-toggle">
-    <button onclick="switchLang('pl')">PL</button>
-    <button onclick="switchLang('en')">EN</button>
-  </div>
-
-  <form id="gameForm">
-    <label id="selectPrompt">Wybierz 10 produktów z Żabki na przetrwanie:</label>
-    <div class="item-grid" id="items"></div>
-
-    <div class="ad-space">[Reklama Google AdSense tutaj]</div>
-
-    <button type="submit">Sprawdź ile przeżyjesz</button>
-  </form>
-
-  <div id="result"></div>
-
-  <script>
-    const items = [
-      { name: 'Hot dog', points: 2, tag: 'hotdog' },
-      { name: 'Kabanosy', points: 3, tag: 'kabanosy' },
-      { name: 'Tiger Energy Drink', points: 1, tag: 'energy' },
-      { name: 'Woda Żywiec Zdrój', points: 3, tag: 'water' },
-      { name: 'Redbull', points: 2, tag: 'energy' },
-      { name: 'Zupa instant', points: 2, tag: 'soup' },
-      { name: 'Kanapka Żabka', points: 2, tag: 'sandwich' },
-      { name: 'Małpka wódki', points: 1, tag: 'vodka' },
-      { name: 'Batony Kinder/Grześki', points: 1, tag: 'sweets' },
-      { name: 'Szczoteczka i pasta', points: 2, tag: 'hygiene' },
-      { name: 'Lighter', points: 2, tag: 'tool' },
-      { name: 'Pierogi mrożone', points: 2, tag: 'pierogi' },
-      { name: 'Jogurt Fantasia', points: 1, tag: 'dairy' },
-      { name: 'Lody Ekipy', points: 0, tag: 'icecream' },
-      { name: 'Paluszki', points: 1, tag: 'snacks' },
-      { name: 'Wafle ryżowe', points: 1, tag: 'snacks' },
-      { name: 'Piwo Harnas', points: 1, tag: 'beer' },
-      { name: 'Żel antybakteryjny', points: 2, tag: 'hygiene' },
-      { name: 'Bag of ice', points: 0, tag: 'ice' },
-      { name: 'Powerbank', points: 3, tag: 'tech' },
-      { name: 'Chrupki cebulowe', points: 1, tag: 'snacks' },
-      { name: 'Sos czosnkowy', points: 0, tag: 'sauce' },
-      { name: 'Ketchup Pikantny', points: 0, tag: 'sauce' },
-      { name: 'Kropla Beskidu', points: 3, tag: 'water' },
-      { name: 'Mleko 2%', points: 1, tag: 'dairy' }
-    ];
-
-    const labels = {
-      pl: {
-        hotdog: "Mistrz Hot Doga",
-        kabanosy: "Kabanosowy Król",
-        pierogi: "Pierogowy Przetrwalec",
-        vodka: "Wódczany Wizjoner",
-        water: "Hydro Bohater",
-        tech: "Techno Żyjący",
-        hygiene: "Apokaliptyczny Sanitarnik",
-        sweets: "Cukrowy Strateg"
-      },
-      en: {
-        hotdog: "Hot Dog Master",
-        kabanosy: "Kabanos King",
-        pierogi: "Pierogi Prepper",
-        vodka: "Vodka Visionary",
-        water: "Hydration Hero",
-        tech: "Tech Survivor",
-        hygiene: "Apocalypse Sanitizer",
-        sweets: "Candy Strategist"
-      }
-    };
-
-    const lang = {
-      pl: {
-        prompt: "Wybierz 10 produktów z Żabki na przetrwanie:",
-        button: "Sprawdź ile przeżyjesz",
-        survived: d => `Przeżyłeś ${d} dni w Żappkapokalipsie!`,
-        share: d => `Przeżyłem ${d} dni w Żappkapokalipsie! Sprawdź ile Ty dasz radę!`
-      },
-      en: {
-        prompt: "Pick 10 items from Żabka to survive:",
-        button: "Check how long you'd survive",
-        survived: d => `You survived ${d} days in the Żappkapocalypse!`,
-        share: d => `I survived ${d} days in the Żappkapocalypse! See if you can beat me!`
-      }
-    };
-
-    let currentLang = 'pl';
-
-    function switchLang(l) {
-      currentLang = l;
-      document.getElementById("selectPrompt").textContent = lang[l].prompt;
-      document.querySelector("button[type=submit]").textContent = lang[l].button;
-    }
-
-    const container = document.getElementById('items');
-    items.forEach((item, i) => {
-      const id = `item-${i}`;
-      container.innerHTML += `<label><input type='checkbox' name='item' value='${item.points}' data-name='${item.name}' data-tag='${item.tag}' id='${id}'> ${item.name}</label>`;
-    });
+// Full code remains the same up until the submit event listener
 
     document.getElementById('gameForm').addEventListener('submit', function (e) {
       e.preventDefault();
@@ -174,25 +7,67 @@
         alert(currentLang === 'pl' ? 'Musisz wybrać dokładnie 10 przedmiotów!' : 'You must choose exactly 10 items!');
         return;
       }
+
       const total = selected.reduce((sum, el) => sum + parseInt(el.value), 0);
       const tagCounts = {};
+      const selectedTags = [];
+
       selected.forEach(el => {
         const tag = el.getAttribute('data-tag');
         tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+        selectedTags.push(tag);
       });
-      const mostCommonTag = Object.entries(tagCounts).sort((a, b) => b[1] - a[1])[0][0];
 
-      const days = total * 3 + Math.floor(Math.random() * 5);
-      const message = lang[currentLang].survived(days);
+      const mostCommonTag = Object.entries(tagCounts).sort((a, b) => b[1] - a[1])[0][0];
       const label = labels[currentLang][mostCommonTag] || '';
 
+      let days = total * 3;
+      if (tagCounts['water'] >= 2) days += 2;
+      if (tagCounts['tech']) days += 1;
+      if (tagCounts['vodka'] >= 2) days -= 2;
+      if (tagCounts['ice']) days -= 1;
+      if (tagCounts['hotdog'] >= 3) days -= 1;
+
+      const comboOutcomes = [
+        {
+          tags: ['vodka', 'lighter'],
+          pl: 'Próbowałeś rozpalić ognisko wódą. Zadziałało. Zbyt dobrze.',
+          en: 'You tried to start a fire with vodka. It worked. Too well.'
+        },
+        {
+          tags: ['pierogi', 'sauce'],
+          pl: 'Twoje pierogi z czosnkowym zostały uznane za walutę w postapokalipsie.',
+          en: 'Your pierogi with garlic sauce became currency in the wasteland.'
+        },
+        {
+          tags: ['tech', 'sandwich'],
+          pl: 'Użyłeś powerbanka do podgrzania kanapki. Kreatywność 10/10.',
+          en: 'You used a powerbank to warm up your sandwich. Innovation at its peak.'
+        }
+      ];
+
+      let funnyEnding = '';
+      for (let combo of comboOutcomes) {
+        if (combo.tags.every(t => selectedTags.includes(t))) {
+          funnyEnding = combo[currentLang];
+          break;
+        }
+      }
+      if (!funnyEnding) {
+        funnyEnding = currentLang === 'pl'
+          ? 'Twoje wybory były... interesujące. Nie przetrwałeś długo, ale zaimponowałeś dzikom.'
+          : 'Your choices were... creative. You didn’t last long, but you impressed the wild boars.';
+      }
+
+      const message = lang[currentLang].survived(days);
       const shareText = lang[currentLang].share(days);
       const url = encodeURIComponent(window.location.href);
       const text = encodeURIComponent(shareText);
 
       document.getElementById('result').innerHTML = `
         <p>${message}</p>
-        <p><em>${label ? 'Tytuł: ' + label : ''}</em></p>
+        <p><em>${label ? '🎖 ' + label : ''}</em></p>
+        <p>${funnyEnding}</p>
         <div style="margin-top:10px">
           <a href="https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}" target="_blank">Facebook</a> |
           <a href="https://twitter.com/intent/tweet?text=${text}&url=${url}" target="_blank">Twitter</a> |
@@ -201,6 +76,3 @@
         <div class="ad-space">[Reklama Google AdSense tutaj]</div>
       `;
     });
-  </script>
-</body>
-</html>

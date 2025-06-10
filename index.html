@@ -1,4 +1,29 @@
-// Full code remains the same up until the submit event listener
+const labels = {
+  pl: {
+    hotdog: "Mistrz Hot Doga",
+    kabanosy: "Kabanosowy Król",
+    pierogi: "Pierogowy Przetrwalec",
+    vodka: "Wódczany Wizjoner",
+    water: "Hydro Bohater",
+    tech: "Techno Żyjący",
+    hygiene: "Apokaliptyczny Sanitarnik",
+    sweets: "Cukrowy Strateg",
+    sauce: "Czosnkowy Czarodziej",
+    sandwich: "Kanapkowy Kurier"
+  },
+  en: {
+    hotdog: "Hot Dog Master",
+    kabanosy: "Kabanos King",
+    pierogi: "Pierogi Prepper",
+    vodka: "Vodka Visionary",
+    water: "Hydration Hero",
+    tech: "Tech Survivor",
+    hygiene: "Apocalypse Sanitizer",
+    sweets: "Candy Strategist",
+    sauce: "Garlic Wizard",
+    sandwich: "Sandwich Operator"
+  }
+};
 
     document.getElementById('gameForm').addEventListener('submit', function (e) {
       e.preventDefault();
@@ -54,10 +79,23 @@
         }
       }
       if (!funnyEnding) {
-        funnyEnding = currentLang === 'pl'
-          ? 'Twoje wybory były... interesujące. Nie przetrwałeś długo, ale zaimponowałeś dzikom.'
-          : 'Your choices were... creative. You didn’t last long, but you impressed the wild boars.';
-      }
+  const fallbackOutcomes = {
+    pl: [
+      'Zjadłeś wszystkie kabanosy i zapomniałeś o wodzie. Nie przetrwałeś.',
+      'Twoje zakupy były smaczne, ale bezużyteczne. Umarłeś syty.',
+      'Zrobiłeś z żelu antybakteryjnego sos. Żałujesz.',
+      'Wszystko poszło dobrze... dopóki nie rozładował się powerbank.'
+    ],
+    en: [
+      'You ate all the kabanosy and forgot water. You didn’t make it.',
+      'Your groceries were tasty but useless. You died full and happy.',
+      'You turned hand sanitizer into sauce. Regret was instant.',
+      'Everything went fine… until the powerbank died.'
+    ]
+  };
+  const options = fallbackOutcomes[currentLang];
+  funnyEnding = options[Math.floor(Math.random() * options.length)];
+}
 
       const message = lang[currentLang].survived(days);
       const shareText = lang[currentLang].share(days);

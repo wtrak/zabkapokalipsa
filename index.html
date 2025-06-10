@@ -78,7 +78,7 @@
   <form id="gameForm">
     <label id="selectPrompt">Wybierz 10 produktów z Żabki na przetrwanie:</label>
     <div class="item-grid" id="items"></div>
-    <button type="submit">Sprawdź ile przeżyjesz</button>
+    <button type="submit" id="submitBtn">Sprawdź ile przeżyjesz</button>
   </form>
 
   <div id="result"></div>
@@ -94,7 +94,7 @@
       { name: 'Jogurt Fantasia', points: 1 }, { name: 'Lody Ekipy', points: 0 },
       { name: 'Paluszki', points: 1 }, { name: 'Wafle ryżowe', points: 1 },
       { name: 'Piwo Harnas', points: 1 }, { name: 'Żel antybakteryjny', points: 2 },
-      { name: 'Bag of ice', points: 0 }, { name: 'Powerbank', points: 3 },
+      { name: 'lód', points: 0 }, { name: 'Powerbank', points: 3 },
       { name: 'Oranżada Hellena', points: 1 }, { name: 'Kropla Beskidu', points: 3 },
       { name: 'Czekolada Wedel', points: 2 }, { name: 'Krakersy Lajkonik', points: 1 },
       { name: 'Serek Wiejski', points: 1 }, { name: 'Baton Prince Polo', points: 1 },
@@ -112,7 +112,8 @@
       pl: {
         prompt: "Wybierz 10 produktów z Żabki na przetrwanie:",
         button: "Sprawdź ile przeżyjesz",
-        survived: d => `Przeżyłeś ${d} dni w Żabkapokalipsie!`,
+        survived: d => `Przeżyłeś ${d} dni w Żabkapokalipse!`,
+        share: d => `Przeżyłem ${d} dni w Żabkapokalipsie! Sprawdź ile Ty dasz radę!`,
         outcome: [
           "Zjadłeś wszystkie kabanosy w pierwszym dniu. Gratulacje...",
           "Zginąłeś próbując otworzyć puszkę pierogów kluczem od roweru.",
@@ -128,7 +129,7 @@
           "Babcia ostrzegła cię przed Praga. Nie posłuchałeś.",
           "Zamieniłeś cały zapas jedzenia na jedną butelkę Żubrówki. Warto było?",
           "Twoje zapasy buraków zaczęły fermentować i stworzyły nową formę życia.",
-          "Wlałeś wódkę do baku skutera. Skuter wybuchł, a kula ognia była widoczna z Gdańska.",
+          "Wlałeś wódkę do baku skutera. Skuter wybuchł, a kula ognia była widoczna z Gdańsk.",
           "Twoja babcia zjawiła się znikąd, dała ci rosół i zniknęła w mgłach apokalipsy.",
           "Znalazłeś schronienie w opuszczonym bloku na Pradze. Przeżyłeś, bo nikt się nie odważył wejść.",
           "Dzięki kiszonym burakom wyhodowałeś własny antybiotyk. Polskie geny to moc.",
@@ -136,14 +137,14 @@
           "Schowałeś się w piwnicy, ale zapomniałeś otwieracza do konserw. Zginąłeś przy próbie użycia klapka Kubota.",
           "Miałeś plan, sprzęt, prowiant… ale poszedłeś po kebaba i już nie wróciłeś.",
           "Uciekałeś przed dzikami na hulajnodze. Były szybsze. I bardziej zorganizowane.",
-          "Stworzyłeś nową religię opartą na Ptasim Mleczku. Zyskałeś wielu wyznawców. I cukrzycę."
-        ],
-        share: d => `Przeżyłem ${d} dni w Żappkapokalipsie! Sprawdź ile Ty dasz radę!`
+          "Stworzyłeś nową religię opartą na Ptasim Mleczku. Zyskałeś wielu wyznawców. I cukrzycę"
+        ]
       },
       en: {
         prompt: "Pick 10 items from Żabka to survive:",
         button: "Check how long you'd survive",
-        survived: d => `You survived ${d} days in the Żappkapocalypse!`,
+        survived: d => `You survived ${d} days in the Żabkapocalypse!`,
+        share: d => `I survived ${d} days in the Żabkapocalypse! See if you can beat me!`,
         outcome: [
           "You ate all your kabanosy on day one. Impressive and deadly.",
           "You died trying to open a can of pierogi with a bike key.",
@@ -168,8 +169,7 @@
           "You had a plan, supplies, equipment… but you went out for kebab and never came back.",
           "You tried to escape wild boars on a scooter. They were faster. And better organized.",
           "You founded a new religion based on Ptasie Mleczko. You gained many followers. And diabetes."
-        ],
-        share: d => `I survived ${d} days in the Żabkapocalypse! See if you can beat me!`
+        ]
       }
     };
 
@@ -178,7 +178,7 @@
     function switchLang(l) {
       currentLang = l;
       document.getElementById("selectPrompt").textContent = lang[l].prompt;
-      document.querySelector("button[type=submit]").textContent = lang[l].button;
+      document.getElementById("submitBtn").textContent = lang[l].button;
     }
 
     const container = document.getElementById('items');
@@ -203,19 +203,21 @@
       const url = encodeURIComponent(window.location.href);
       const text = encodeURIComponent(shareText);
 
-      let shareLinks = `
-        <div style="margin-top:15px">
-          <a href="mailto:?subject=Żabkapokalipsa&body=${text}%0A${url}" target="_blank">📧 Email</a> |
-          <a href="https://wa.me/?text=${text}%20${url}" target="_blank">💬 WhatsApp</a> |
-          <a href="https://t.me/share/url?url=${url}&text=${text}" target="_blank">📢 Telegram</a> |
-          <a href="#" onclick="if(navigator.share){navigator.share({title:'Żabkapokalipsa', text:'${shareText}', url:window.location.href});}return false;">🔗 Share</a>
-        </div>`;
-
+      document.getElementById('gameForm').style.display = 'none';
       document.getElementById('result').innerHTML = `
         <p>${message}</p>
         <p><em>${outcome}</em></p>
-        ${shareLinks}
+        <div style="margin-top:10px">
+          <p>${currentLang === 'pl' ? 'Udostępnij wynik:' : 'Share your result:'}</p>
+          <a href="mailto:?subject=Żabkapokalipsa&body=${text}%20${url}" target="_blank">Email</a> |
+          <a href="https://wa.me/?text=${text}%20${url}" target="_blank">WhatsApp</a> |
+          <a href="https://t.me/share/url?url=${url}&text=${text}" target="_blank">Telegram</a> |
+          <a href="#" onclick="navigator.share({ title: 'Żabkapokalipsa', text: '${shareText}', url: '${window.location.href}' }).catch(console.error); return false;">
+            ${currentLang === 'pl' ? 'Udostępnij...' : 'Share...'}
+          </a>
+        </div>
         <div class="ad-space">[Reklama Google AdSense tutaj]</div>
+        <button onclick="location.reload()">${currentLang === 'pl' ? 'Zagraj ponownie' : 'Play Again'}</button>
       `;
     });
   </script>
